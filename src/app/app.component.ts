@@ -1,35 +1,31 @@
-import { Component } from '@angular/core';
-
-export class Hero {
-  id: number;
-  name: string;
-}
-
-// Heroes array is a type of Hero class
-const Heroes: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-];
+import { Component, OnInit } from '@angular/core';
+import { Hero } from './hero';
+import { HeroService } from './hero.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [HeroService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title: string = 'Band of Heroes';
-  hero: Hero = {
-    id: 1,
-    name: 'Windstorm'
-  };
-  heroes = Heroes;
+  selectedHero: Hero;
+  heroes: Hero[];
+
+  constructor(private heroService: HeroService) {}
+
+  getHeroes(): void {
+    this.heroService.getHeroesLatency().then(heroes => this.heroes = heroes);
+    // this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+  }
+
+  ngOnInit(): void {
+    this.getHeroes();
+  }
 }
