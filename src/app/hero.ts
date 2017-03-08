@@ -1,7 +1,7 @@
 export class Hero {
   id: number;
   name: string;
-  address: Address[];
+  addresses: Address[];
 }
 
 export class Address {

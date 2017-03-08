@@ -5,12 +5,56 @@
   </div>
   <form [formGroup]="heroForm" novalidate>
     <div class="form-group">
-      <label>Name: </label>
-      <input type="text" placeholder="Hero name" class="form-control" formControlName="name" />
-      <p>Form value: {{ heroForm.value | json }}</p>
-      <p>Form status: {{ heroForm.status | json }}</p>
+      <label>Name:
+        <input type="text" placeholder="Hero name" class="form-control" formControlName="name" />
+      </label>
+    </div>
+    <div class="hq" formArrayName="hq">
+      <button type="button" (click)="addHq()">Add HQ</button>
+      <div *ngFor="let address of hq.controls; let i = index" [formGroupName]="i">
+        <h4>Address #{{ i + 1 }}</h4>
+        <div class="form-group">
+          <label class="center-block">Street:
+            <input class="form-control" formControlName="street">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">City:
+            <input class="form-control" formControlName="city">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">State:
+            <select class="form-control" formControlName="state">
+              <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Zip Code:
+            <input class="form-control" formControlName="zip">
+          </label>
+        </div>
+
+        <button type="button" (click)="removeHq(i)">Remove</button>
+      </div>
+    </div>
+    <div class="form-group radio">
+      <h4>Superpower:</h4>
+      <label for=""><input type="radio" formControlName="power" value="fly" />Fly</label>
+      <label for=""><input type="radio" formControlName="power" value="xray">X-ray vision</label>
+      <label for=""><input type="radio" formControlName="power" value="strength">Strength</label>
+    </div>
+    <div class="checkbox">
+      <label for="">
+        <input type="checkbox" formControlName="sidekick" /> I have sidekick
+      </label>
     </div>
   </form>
+
+  <p>Form value: {{ heroForm.value | json }}</p>
+  <p>Form status: {{ heroForm.status | json }}</p>
+
   <button (click)="save()">Save</button>
   <button (click)="goBack()">Back</button>
 </div>
