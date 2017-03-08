@@ -1,10 +1,17 @@
 <div *ngIf="hero">
   <h2>{{hero.name}} details!</h2>
   <div>
-    <label>id: </label>{{hero.id}}
+    <label>ID: </label>{{hero.id}}
   </div>
-  <div>
-    <label>name: </label>
-    <input type="text" [(ngModel)]="hero.name" placeholder="Hero name" />
-  </div>
+  <form [formGroup]="heroForm" novalidate>
+    <div class="form-group">
+      <label>Name: </label>
+      <input type="text" placeholder="Hero name" class="form-control" formControlName="name" />
+      <p>Form value: {{ heroForm.value | json }}</p>
+      <p>Form status: {{ heroForm.status | json }}</p>
+    </div>
+  </form>
+  <button (click)="save()">Save</button>
+  <button (click)="goBack()">Back</button>
 </div>
+<p *ngIf="!hero">Loading hero</p>

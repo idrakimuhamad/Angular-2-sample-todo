@@ -1,0 +1,15 @@
+<h3>Top Heroes</h3>
+<div class="grid grid-pad">
+  <a [routerLink]="['/detail', hero.id]"
+    class="col-1-4"
+    *ngFor="let hero of heroes">
+    <div>
+      <div class="module hero">
+        <h4>{{hero.name}}</h4>
+      </div>
+    </div>
+  </a>
+  <h3 *ngIf="heroes?.length === 0" class="loading">Loading</h3>
+
+</div>
+<hero-search></hero-search>

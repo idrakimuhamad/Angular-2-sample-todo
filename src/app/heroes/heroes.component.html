@@ -1,0 +1,24 @@
+<div>
+  <h2>My Heroes</h2>
+  <ul class="heroes" *ngIf="heroes?.length > 0">
+    <li *ngFor="let hero of heroes"
+      [class.selected]="hero === selectedHero"
+      [@flyInOut]="hero.state"
+      (click)="onSelect(hero)"
+      class="col-1-4">
+      <span class="badge">{{hero.id}}</span>
+      <span>{{hero.name}}</span>
+      <button class="delete" (click)="delete(hero); $event.stopPropagation()">Delete</button>
+    </li>
+  </ul>
+  <p *ngIf="!heroes">Loading</p>
+  <div *ngIf="selectedHero" [@flyInOut]="selectedHero.state">
+    <h2>{{selectedHero.name | uppercase}} is my hero</h2>
+    <button (click)="gotoDetail()">View Details</button>
+  </div>
+  <div class="add-hero-container">
+    <h4>Add a hero</h4>
+    <label>Name: </label> <input type="text" #heroName />
+    <button (click)="add(heroName.value); heroName.value = ''">Add</button>
+  </div>
+</div>
